@@ -9,5 +9,8 @@
     ]
   },
   "repository": "git@github.com:weltonfelix/cookit.git",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
 }

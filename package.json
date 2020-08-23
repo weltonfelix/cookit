@@ -1,0 +1,13 @@
+{
+  "name": "cookit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": "true",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "repository": "git@github.com:weltonfelix/cookit.git",
+  "license": "MIT"
+}

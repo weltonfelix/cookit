@@ -1,14 +1,27 @@
 {
   "name": "cookit",
-  "version": "1.0.0",
-  "main": "index.js",
   "private": "true",
+  "contributors": [
+    {
+      "name": "Fábio Papais",
+      "email": "fabiopapais@hotmail.com",
+      "url": "https://github.com/fabiopapaiss"
+    },
+    {
+      "name": "Welton Felix",
+      "email": "contato.weltonf@gmail.com",
+      "url": "https://github.com/weltonfelix"
+    }
+  ],
   "workspaces": {
     "packages": [
       "packages/*"
     ]
   },
-  "repository": "git@github.com:weltonfelix/cookit.git",
+  "repository": {
+    "type" : "git",
+    "url" : "git@github.com:weltonfelix/cookit.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "typescript": "^4.0.2",

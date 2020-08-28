@@ -1,6 +1,8 @@
 {
   "name": "@cookit/server",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "index.ts",
+  "repository": "git@github.com:weltonfelix/cookit.git",
+  "license": "MIT",
+  "private": true
 }

@@ -10,7 +10,6 @@ module.exports = {
     'airbnb',
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
     'prettier/react',
   ],
   parser: '@typescript-eslint/parser',
@@ -18,12 +17,24 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 11,
+    ecmaVersion: 12,
     sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
+    'arrow-parens': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'comma-dangle': 'off',
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/jsx-filename-extension': [
+      'error', { 'extensions': ['.tsx', '.js', '.jsx'] }
+    ],
+    'import/extensions': [
+      'error', { 'extensions': ['.tsx', '.js', '.jsx'] }
+    ]
   },
   settings: {
     'import/resolver': {

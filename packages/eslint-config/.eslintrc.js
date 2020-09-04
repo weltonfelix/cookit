@@ -26,6 +26,7 @@ module.exports = {
     'arrow-parens': 'off',
     'implicit-arrow-linebreak': 'off',
     'comma-dangle': 'off',
+    'import/no-unresolved': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'off',

@@ -1,0 +1,26 @@
+:root {
+    --color-primary: #F14C18;
+    --color-primary-light: #F1683C;
+    --color-primary-dark: #CC390A;
+    --color-secondary: #FFB547;
+    --color-secondary-light: #F7E248;
+    --color-secondary-dark: #D1BB13;
+    --color-dark: #3D3F40;
+    --color-light: #DCE2E6;
+    --color-success: #4DDB55;
+    --color-danger: #FF4836;
+
+    font-size: 60%;
+    font-family: 'Nunito', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    height: 100vh;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './styles';
+import './styles.css';
 
 const Landing: React.FC = () => <div>Hello, Cookit!</div>;
 

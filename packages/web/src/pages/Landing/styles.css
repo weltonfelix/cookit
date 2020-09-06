@@ -1,0 +1,37 @@
+#page-landing {
+    width: 100vw;
+    height: 100vh;
+
+    padding: 0 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    margin: 30px 0 45px 0;
+    text-align: center;
+}
+header img {
+    width: 75%;
+    height: auto;
+}
+
+main {
+    text-align: center;
+}
+main #headings {
+    margin-bottom: 20px;
+}
+main #headings h1 {
+    color: var(--color-primary-dark);
+    font-weight: 600;
+
+    margin-bottom: 10px;
+}
+main #headings h3 {
+    color: var(--color-dark);
+    font-weight: 400;
+
+    font-size: 1.55rem;
+}

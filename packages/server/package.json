@@ -2,7 +2,20 @@
   "name": "@cookit/server",
   "version": "1.0.0",
   "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts"
+  },
   "repository": "git@github.com:weltonfelix/cookit.git",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "eslintConfig": {
+    "extends": "@cookit/eslint-config"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.9"
+  }
 }

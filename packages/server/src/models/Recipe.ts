@@ -20,7 +20,7 @@ class Recipe {
   @Column('integer')
   stars: number;
 
-  @Column('array')
+  @Column('text', { array: true })
   directions: string[];
 }
 

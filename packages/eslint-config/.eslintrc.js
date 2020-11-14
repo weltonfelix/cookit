@@ -34,7 +34,7 @@ module.exports = {
       'error', { 'extensions': ['.tsx', '.js', '.jsx'] }
     ],
     'import/extensions': [
-      'error', { 'extensions': ['.tsx', '.js', '.jsx'] }
+      'error', { 'extensions': ['.tsx', '.js', '.jsx', 'css']}
     ]
   },
   settings: {

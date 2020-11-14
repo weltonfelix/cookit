@@ -14,6 +14,13 @@ export default class CreateRecipeIngredients1605383931470
         name: 'recipe_ingredients',
         columns: [
           {
+            name: 'id',
+            type: 'integer',
+            isPrimary: true,
+            generationStrategy: 'increment',
+            isGenerated: true,
+          },
+          {
             name: 'recipe_id',
             type: 'integer',
             isNullable: false,

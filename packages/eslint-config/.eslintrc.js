@@ -38,8 +38,10 @@ module.exports = {
     ]
   },
   settings: {
-    'import/resolver': {
-      typescript: {},
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     },
     react: {
       version: 'detect',

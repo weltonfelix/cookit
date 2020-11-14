@@ -1,37 +1,81 @@
 #page-landing {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 
-    padding: 0 10px;
+  /* All page left and right "margin" */
+  padding: 0 15px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-    margin: 30px 0 45px 0;
-    text-align: center;
+  margin: 45px 0 0 0;
+  text-align: center;
 }
 header img {
-    width: 75%;
-    height: auto;
+  width: 75%;
+  height: auto;
 }
 
 main {
-    text-align: center;
+  text-align: center;
+  margin: 60px 0;
+  /* margin: auto;  FUTURE IMPLEMENT*/
 }
 main #headings {
-    margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 main #headings h1 {
-    color: var(--color-primary-dark);
-    font-weight: 600;
+  color: var(--color-primary-dark);
+  font-weight: 600;
 
-    margin-bottom: 10px;
+  font-size: 2.3rem;
+
+  margin-bottom: 15px;
 }
 main #headings h3 {
-    color: var(--color-dark);
-    font-weight: 400;
+  color: var(--color-dark);
+  font-weight: 400;
 
-    font-size: 1.55rem;
+  font-size: 1.60rem;
+}
+
+main #search-bar {
+  display: flex;
+  padding: 8px;
+  width: 95%;
+  overflow: hidden;
+  margin: auto;
+
+  border: 4px solid var(--color-primary);
+  border-radius: var(--border-standard);
+  background-color: #F2F2F2;
+}
+main #search-bar input {
+  border: none;
+  outline: none;
+
+  font-size: 1.2rem;
+  background-color: #F2F2F2;
+}
+main #search-bar input::placeholder {
+  color: #bdbdbd;
+}
+main #search-bar input:-ms-input-placeholder {
+  color: #bdbdbd;
+} 
+main #search-bar input::-ms-input-placeholder {
+  color: #bdbdbd;
+}
+
+main #search-bar svg {
+  margin-left: auto;
+
+  font-size: 2.5rem;
+  color: var(--color-primary);
+}
+
+#popular-ingredients-container {
+  
 }

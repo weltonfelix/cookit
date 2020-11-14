@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import express from 'express';
 
+import './database';
+
 import routes from './routes';
 
 const app = express();

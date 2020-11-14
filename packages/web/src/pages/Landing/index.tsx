@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import PopularIngredient from '../../components/PopularIngredient';
-
 import './styles.css';
 import { MdSearch } from 'react-icons/md';
 import logotype from '../../assets/images/logos/logotype.svg';
+
+import PopularIngredient from '../../components/PopularIngredient';
 
 const Landing: React.FC = () => {
   const [currentMeal, setCurrentMeal] = useState('');
@@ -14,7 +14,7 @@ const Landing: React.FC = () => {
 
     if (hour >= 4 && hour <= 10) {
       setCurrentMeal('café da manhã');
-    } else if (hour > 10 && hour <= 16) {
+    } else if (hour > 10 && hour <= 17) {
       setCurrentMeal('almoço');
     } else {
       setCurrentMeal('jantar');
@@ -40,8 +40,11 @@ const Landing: React.FC = () => {
         </div>
       </main>
       <section id="popular-ingredients-container">
-        <h3>Ingredientes Populares</h3>
+        <h2>Ingredientes Populares</h2>
         <div id="popular-ingredients">
+          <PopularIngredient />
+          <PopularIngredient />
+          <PopularIngredient />
           <PopularIngredient />
         </div>
       </section>

@@ -17,7 +17,7 @@ export default class CreateIngredients1605382581994
           },
           {
             name: 'name',
-            type: 'integer',
+            type: 'varchar',
             isNullable: false,
             isUnique: true,
           },

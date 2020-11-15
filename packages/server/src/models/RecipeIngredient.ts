@@ -1,17 +1,31 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+/* eslint-disable object-curly-newline */
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+import Ingredient from './Ingredient';
+import MeasurementUnit from './MeasurementUnit';
+import Recipe from './Recipe';
 
 @Entity('recipe_ingredients')
 class RecipeIngredient {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column('integer')
+  @ManyToOne(() => Recipe, recipe => recipe.ingredients)
+  @JoinColumn({ name: 'recipe_id', referencedColumnName: 'id' })
   recipe_id: number;
 
-  @Column('integer')
+  @ManyToOne(() => Ingredient, ingredient => ingredient.id)
+  @JoinColumn({ name: 'ingredient_id', referencedColumnName: 'id' })
   ingredient_id: number;
 
-  @Column('integer')
+  @ManyToOne(() => MeasurementUnit, measurementUnit => measurementUnit.id)
+  @JoinColumn({ name: 'unit_id', referencedColumnName: 'id' })
   unit_id: number;
 
   @Column()

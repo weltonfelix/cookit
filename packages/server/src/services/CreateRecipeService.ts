@@ -35,7 +35,7 @@ class CreateRecipeService {
       picture,
       author,
       prep_time: prepTime,
-      directions,
+      directions: JSON.stringify(directions),
     });
 
     let storedRecipe: Recipe;
@@ -54,6 +54,7 @@ class CreateRecipeService {
 
       return {
         ...storedRecipe,
+        directions: JSON.parse(storedRecipe.directions),
         ingredients: storedRecipeIngredients,
       };
     } catch (error) {

@@ -1,7 +1,10 @@
 /* eslint-disable operator-linebreak */
 import { Router } from 'express';
+import { getCustomRepository } from 'typeorm';
 
 import Recipe from '../models/Recipe';
+
+import RecipesRepository from '../repositories/RecipesRepository';
 
 import CreateRecipeService from '../services/CreateRecipeService';
 
@@ -49,6 +52,16 @@ recipeRouter.post('/recipe', async (request, response) => {
 
     return response.status(400).json({ error: error.message });
   }
+});
+
+recipeRouter.get('/recipe/:recipeId', async (request, response) => {
+  const { recipeId } = request.params;
+
+  const recipesRepository = getCustomRepository(RecipesRepository);
+
+  const recipe = await recipesRepository.findRecipe(Number(recipeId));
+
+  return response.json(recipe);
 });
 
 export default recipeRouter;

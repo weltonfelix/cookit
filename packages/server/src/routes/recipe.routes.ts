@@ -64,4 +64,33 @@ recipeRouter.get('/recipe/:recipeId', async (request, response) => {
   return response.json(recipe);
 });
 
+recipeRouter.get('/recipes', async (request, response) => {
+  const recipesRepository = getCustomRepository(RecipesRepository);
+  try {
+    const { ingredients } = request.query;
+
+    if (!ingredients) {
+      throw new Error('Ingredients must be provided');
+    }
+    const recipeIngredients = JSON.parse(String(ingredients));
+
+    if (recipeIngredients.length === 0) {
+      throw new Error('Ingredients must be provided');
+    }
+
+    const results = await recipesRepository.findByIngredients(
+      recipeIngredients
+    );
+
+    const recipes = {
+      recipes: results && results[0],
+      recipesCount: results && results[1],
+    };
+
+    return response.json(recipes);
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
+});
+
 export default recipeRouter;

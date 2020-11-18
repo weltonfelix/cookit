@@ -2,31 +2,31 @@
   width: 100vw;
   height: 100vh;
 
-  /* All page left and right "margin" */
-  padding: 0 15px;
+  /* All page lateral "margin" */
+  padding: 0 25px;
 
   display: flex;
   flex-direction: column;
 }
 
-header {
+#page-landing #landing-header {
   margin: 45px 0 0 0;
   text-align: center;
 }
-header img {
+#page-landing #landing-header img {
   width: 75%;
   height: auto;
 }
 
-main {
+#page-landing main {
   text-align: center;
   margin-top: 60px;
   /* margin: auto;  FUTURE IMPLEMENT*/
 }
-main #headings {
+#page-landing main #headings {
   margin-bottom: 30px;
 }
-main #headings h1 {
+#page-landing main #headings h1 {
   color: var(--color-primary-dark);
   font-weight: 600;
 
@@ -34,14 +34,14 @@ main #headings h1 {
 
   margin-bottom: 15px;
 }
-main #headings h3 {
+#page-landing main #headings h3 {
   color: var(--color-dark);
   font-weight: 400;
 
   font-size: 1.60rem;
 }
 
-main #search-bar {
+#page-landing main #search-bar {
   display: flex;
   padding: 8px;
   width: 95%;
@@ -52,39 +52,39 @@ main #search-bar {
   border-radius: var(--border-standard);
   background-color: #F2F2F2;
 }
-main #search-bar input {
+#page-landing main #search-bar input {
   border: none;
   outline: none;
 
   font-size: 1.2rem;
   background-color: #F2F2F2;
 }
-main #search-bar input::placeholder {
+#page-landing main #search-bar input::placeholder {
   color: #bdbdbd;
 }
-main #search-bar input:-ms-input-placeholder {
+#page-landing main #search-bar input:-ms-input-placeholder {
   color: #bdbdbd;
 } 
-main #search-bar input::-ms-input-placeholder {
+#page-landing main #search-bar input::-ms-input-placeholder {
   color: #bdbdbd;
 }
 
-main #search-bar svg {
+#page-landing main #search-bar svg {
   margin-left: auto;
 
   font-size: 2.5rem;
   color: var(--color-primary);
 }
 
-#popular-ingredients-container {
+#page-landing #popular-ingredients-container {
   margin: 60px 0 30px 0;
 }
-#popular-ingredients-container h2 {
+#page-landing #popular-ingredients-container h2 {
   font-size: 1.8em;
   font-weight: 600;
   color: var(--color-primary);
 }
-#popular-ingredients-container #popular-ingredients {
+#page-landing #popular-ingredients-container #popular-ingredients {
   display: flex;
   gap: 13px;
   overflow-y: scroll;
@@ -93,6 +93,6 @@ main #search-bar svg {
 
   /*Little trick to make cards appear
   on top of the page's lateral padding*/
-  margin: 0 -15px;
-  padding: 15px;
+  margin: 0 -25px;
+  padding: 15px 25px;
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './styles.css';
 import { MdSearch } from 'react-icons/md';
@@ -7,6 +8,8 @@ import logotype from '../../assets/images/logos/logotype.svg';
 import PopularIngredient from '../../components/PopularIngredient';
 
 const Landing: React.FC = () => {
+  const history = useHistory();
+
   const [currentMeal, setCurrentMeal] = useState('');
 
   useEffect(() => {
@@ -21,9 +24,13 @@ const Landing: React.FC = () => {
     }
   }, []);
 
+  function handleSearchPageRedirect(): void {
+    return history.push('/search');
+  }
+
   return (
     <div id="page-landing">
-      <header>
+      <header id="landing-header">
         <img src={logotype} alt="Cookit!" />
       </header>
       <main>
@@ -34,7 +41,13 @@ const Landing: React.FC = () => {
             cozinha, separados por vírgula:
           </h3>
         </div>
-        <div id="search-bar">
+        <div
+          id="search-bar"
+          onClick={handleSearchPageRedirect}
+          onKeyPress={handleSearchPageRedirect}
+          tabIndex={0}
+          role="button"
+        >
           <input type="text" placeholder="Ingredientes" />
           <MdSearch />
         </div>

@@ -100,6 +100,28 @@ class RecipesRepository extends Repository<Recipe> {
 
     return [recipes, recipesCount];
   }
+
+  public async rate(recipeId: number, rating: number): Promise<{stars: number, countRates: number}> {
+    const recipesRepository = getRepository(Recipe);
+
+    const recipe = await recipesRepository.findOne({
+      where: { id: recipeId },
+    });
+
+    if (!recipe) {
+      throw new Error('Recipe not found.');
+    }
+
+    await recipesRepository.update(recipe.id, {
+      stars: recipe.stars + rating,
+      countRates: recipe.countRates + 1,
+    });
+
+    return {
+      stars: recipe.stars + rating,
+      countRates: recipe.countRates + 1,
+    };
+  }
 }
 
 export default RecipesRepository;

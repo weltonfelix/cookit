@@ -93,4 +93,29 @@ recipeRouter.get('/recipes', async (request, response) => {
   }
 });
 
+recipeRouter.post('/recipe/:recipeId/rate', async (request, response) => {
+  try {
+    const { recipeId } = request.params;
+
+    const { rating } = request.body;
+
+    const starsRating = Number(rating);
+
+    if (starsRating <= 0 || starsRating > 10) {
+      throw new Error('Rating must be a value between 1 and 10');
+    }
+
+    const recipesRepository = getCustomRepository(RecipesRepository);
+
+    const { stars, countRates } = await recipesRepository.rate(
+      Number(recipeId),
+      starsRating
+    );
+
+    return response.json({ stars, countRates });
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
+});
+
 export default recipeRouter;

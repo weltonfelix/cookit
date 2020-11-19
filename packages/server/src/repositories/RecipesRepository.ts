@@ -12,6 +12,7 @@ interface RecipesResult {
   author: Recipe['author'];
   prepTime: Recipe['prepTime'];
   stars: Recipe['stars'];
+  countRates: Recipe['countRates'];
 }
 
 interface RecipeIngredientQuery {
@@ -94,6 +95,7 @@ class RecipesRepository extends Repository<Recipe> {
       author: recipeIngredient.recipe_id.author,
       prepTime: recipeIngredient.recipe_id.prepTime,
       stars: recipeIngredient.recipe_id.stars,
+      countRates: recipeIngredient.recipe_id.countRates,
     }));
 
     return [recipes, recipesCount];

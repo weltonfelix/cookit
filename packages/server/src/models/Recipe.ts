@@ -28,6 +28,9 @@ class Recipe {
   @Column('integer')
   stars: number;
 
+  @Column('integer', { name: 'count_rates' })
+  countRates: number;
+
   @Column('text')
   directions: string;
 

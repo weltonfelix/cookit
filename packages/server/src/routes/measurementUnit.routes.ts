@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
+import { celebrate, Joi } from 'celebrate';
 
 import MeasurementUnit from '../models/MeasurementUnit';
 
@@ -7,26 +8,40 @@ import CreateMeasurementUnitService from '../services/CreateMeasurementUnitServi
 
 const measurementUnitRouter = Router();
 
-measurementUnitRouter.post('/measurementunit', async (request, response) => {
-  try {
-    const { name, quantity } = request.body;
-
-    if (!name) {
-      throw new Error('Measurement Unit name must be provided');
+measurementUnitRouter.post(
+  '/measurementunit',
+  celebrate(
+    {
+      body: Joi.object().keys({
+        name: Joi.string().required(),
+        quantity: Joi.string(),
+      }),
+    },
+    {
+      abortEarly: false,
     }
+  ),
+  async (request, response) => {
+    try {
+      const { name, quantity } = request.body;
 
-    const createMeasurementUnit = new CreateMeasurementUnitService();
+      if (!name) {
+        throw new Error('Measurement Unit name must be provided');
+      }
 
-    const measurementUnit = await createMeasurementUnit.execute({
-      name,
-      quantity,
-    });
+      const createMeasurementUnit = new CreateMeasurementUnitService();
 
-    return response.json(measurementUnit);
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
+      const measurementUnit = await createMeasurementUnit.execute({
+        name,
+        quantity,
+      });
+
+      return response.json(measurementUnit);
+    } catch (error) {
+      return response.status(400).json({ error: error.message });
+    }
   }
-});
+);
 
 measurementUnitRouter.get('/measurementunit', async (request, response) => {
   const measurementUnitsRepository = getRepository(MeasurementUnit);

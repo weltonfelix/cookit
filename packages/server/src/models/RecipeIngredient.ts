@@ -18,17 +18,26 @@ class RecipeIngredient {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @ManyToOne(() => Recipe, recipe => recipe.ingredients)
-  @JoinColumn({ name: 'recipe_id', referencedColumnName: 'id' })
+  @Column('integer')
   recipe_id: number;
 
-  @ManyToOne(() => Ingredient, ingredient => ingredient.id)
-  @JoinColumn({ name: 'ingredient_id', referencedColumnName: 'id' })
+  @ManyToOne(() => Recipe)
+  @JoinColumn({ name: 'recipe_id' })
+  recipe: Recipe;
+
+  @Column('integer')
   ingredient_id: number;
 
-  @ManyToOne(() => MeasurementUnit, measurementUnit => measurementUnit.id)
-  @JoinColumn({ name: 'unit_id', referencedColumnName: 'id' })
+  @ManyToOne(() => Ingredient)
+  @JoinColumn({ name: 'ingredient_id' })
+  ingredient: Ingredient;
+
+  @Column('integer')
   unit_id: number;
+
+  @ManyToOne(() => MeasurementUnit)
+  @JoinColumn({ name: 'unit_id' })
+  unit: number;
 
   @Column()
   quantity: string;

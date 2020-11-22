@@ -38,10 +38,10 @@ class Recipe {
 
   @OneToMany(
     () => RecipeIngredient,
-    recipeIngredient => recipeIngredient.recipe_id,
+    recipeIngredient => recipeIngredient.recipe,
     { cascade: true }
   )
-  @JoinColumn({ name: 'recipe_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'id' })
   ingredients: RecipeIngredient[];
 
   @CreateDateColumn()

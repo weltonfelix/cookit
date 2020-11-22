@@ -15,35 +15,29 @@ interface RecipesResult {
   countRates: Recipe['countRates'];
 }
 
-interface RecipeIngredientQuery {
-  id: number;
-  recipe_id: Recipe;
+interface RecipesQuery {
+  id: Ingredient['id'];
+  name: Ingredient['name'];
+  recipe_ingredients: {
+    id: RecipeIngredient['id'],
+    recipe: RecipesResult,
+  }
 }
 
 @EntityRepository(Recipe)
 class RecipesRepository extends Repository<Recipe> {
   public async findRecipe(recipeId: Recipe['id']): Promise<Recipe | null> {
     const recipesRepository = getRepository(Recipe);
-    const recipeIngredientsRepository = getRepository(RecipeIngredient);
 
     const recipe = await recipesRepository.findOne(recipeId, {
-      relations: ['ingredients'],
+      relations: ['ingredients', 'ingredients.ingredient', 'ingredients.unit'],
+
     });
 
     if (recipe) {
-      const recipeIngredients = await recipeIngredientsRepository.findByIds(
-        recipe.ingredients.map(recipeIngredient => recipeIngredient.id),
-        {
-          relations: ['ingredient_id', 'unit_id'],
-        }
-      );
-
       return {
         ...recipe,
         directions: JSON.parse(recipe.directions),
-        ingredients: {
-          ...recipeIngredients,
-        },
       };
     }
 
@@ -54,51 +48,48 @@ class RecipesRepository extends Repository<Recipe> {
     ingredientsArray: string[]
   ): Promise<[RecipesResult[], number] | null> {
     const ingredientsRepository = getRepository(Ingredient);
-    const recipeIngredientsRepository = getRepository(RecipeIngredient);
 
     const ingredients = ingredientsArray.map(ingredient =>
       ingredient.toUpperCase()
     );
 
-    const ingredientsData = await ingredientsRepository
+    const recipesQuery = await ingredientsRepository
       .createQueryBuilder('ingredients')
-      .select('ingredients.id')
+      .leftJoinAndSelect('ingredients.recipe_ingredients', 'recipe_ingredient')
+      .leftJoinAndSelect('recipe_ingredient.recipe', 'recipe')
       .where('UPPER(ingredients.name) IN (:...name)', {
         name: ingredients,
       })
-      .getMany();
+      .select([
+        'ingredients.id',
+        'ingredients.name',
+        'recipe_ingredient.id',
+        'recipe_ingredient.recipe',
+        'recipe.id',
+        'recipe.title',
+        'recipe.picture',
+        'recipe.author',
+        'recipe.prepTime',
+        'recipe.stars',
+        'recipe.countRates',
+      ])
+      .getMany() as unknown as RecipesQuery[];
 
-    if (!ingredientsData || ingredientsData.length === 0) {
+    if (!recipesQuery || recipesQuery.length === 0) {
       return [[], 0];
     }
 
-    const ingredientsId = ingredientsData.map(ingredient => ingredient.id);
-
-    const [
-      recipeIngredientsData,
-      recipesCount,
-    ] = await recipeIngredientsRepository
-      .createQueryBuilder('recipe_ingredients')
-      .where('recipe_ingredients.ingredient_id IN (:...ingredients)', {
-        ingredients: ingredientsId,
-      })
-      .select(['recipe_ingredients.id'])
-      .leftJoinAndSelect('recipe_ingredients.recipe_id', 'recipe')
-      .getManyAndCount();
-
-    const recipeIngredientQuery = (recipeIngredientsData as unknown) as RecipeIngredientQuery[];
-
-    const recipes = recipeIngredientQuery.map(recipeIngredient => ({
-      id: recipeIngredient.recipe_id.id,
-      title: recipeIngredient.recipe_id.title,
-      picture: recipeIngredient.recipe_id.picture,
-      author: recipeIngredient.recipe_id.author,
-      prepTime: recipeIngredient.recipe_id.prepTime,
-      stars: recipeIngredient.recipe_id.stars,
-      countRates: recipeIngredient.recipe_id.countRates,
+    const recipes = recipesQuery.map(recipe => ({
+      id: recipe.recipe_ingredients.recipe.id,
+      title: recipe.recipe_ingredients.recipe.title,
+      picture: recipe.recipe_ingredients.recipe.picture,
+      author: recipe.recipe_ingredients.recipe.author,
+      prepTime: recipe.recipe_ingredients.recipe.prepTime,
+      stars: recipe.recipe_ingredients.recipe.stars,
+      countRates: recipe.recipe_ingredients.recipe.countRates,
     }));
 
-    return [recipes, recipesCount];
+    return [recipes, recipes.length];
   }
 
   public async rate(recipeId: number, rating: number): Promise<{stars: number, countRates: number}> {

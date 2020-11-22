@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import RecipeIngredient from './RecipeIngredient';
 
 @Entity('measurement_units')
 class MeasurementUnit {
@@ -16,6 +19,10 @@ class MeasurementUnit {
 
   @Column()
   quantity: string;
+
+  @OneToMany(() => RecipeIngredient, recipeIngredient => recipeIngredient.unit)
+  @JoinColumn({ name: 'id' })
+  recipeIngredients: RecipeIngredient[];
 
   @CreateDateColumn()
   created_at: Date;

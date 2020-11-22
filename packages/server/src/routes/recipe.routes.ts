@@ -166,10 +166,6 @@ recipeRouter.post(
 
       const starsRating = Number(rating);
 
-      if (starsRating <= 0 || starsRating > 10) {
-        throw new Error('Rating must be a value between 1 and 10');
-      }
-
       const recipesRepository = getCustomRepository(RecipesRepository);
 
       const { stars, countRates } = await recipesRepository.rate(

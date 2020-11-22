@@ -1,10 +1,12 @@
 /* eslint-disable object-curly-newline */
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 import Ingredient from './Ingredient';
@@ -30,6 +32,12 @@ class RecipeIngredient {
 
   @Column()
   quantity: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default RecipeIngredient;

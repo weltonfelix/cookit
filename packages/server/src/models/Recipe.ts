@@ -1,10 +1,12 @@
 /* eslint-disable object-curly-newline */
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import RecipeIngredient from './RecipeIngredient';
 
@@ -41,6 +43,12 @@ class Recipe {
   )
   @JoinColumn({ name: 'recipe_id', referencedColumnName: 'id' })
   ingredients: RecipeIngredient[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default Recipe;

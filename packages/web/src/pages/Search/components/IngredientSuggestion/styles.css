@@ -1,0 +1,41 @@
+.suggestion {
+  height: 30px;
+  display: flex;
+  align-items: center;
+
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  border: 2px solid #888888;
+}
+.suggestion small {
+  margin: 0 5px 0 10px;
+
+  /*IMPORTANT to make text 
+    appear in only one line*/
+  white-space: nowrap;
+
+  color: #888888;
+  font-size: 15px;
+  font-weight: 700;
+}
+.suggestion svg {
+  font-size: 30px;
+}
+.suggestion .remove-button {
+  /*span issues */
+  margin-top: 4px;
+}
+.suggestion .remove-button .remove {
+  color: var(--color-danger);
+}
+.suggestion #added {
+  color: #888888;
+}
+.suggestion .add-button {
+  /*span issues */
+  margin-top: 4px;
+}
+.suggestion .add {
+  color: var(--color-success);
+  margin-left: -8px;
+}

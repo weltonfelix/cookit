@@ -10,6 +10,9 @@
 #section-header svg {
     font-size: 2.8rem;
     color: var(--color-primary);
+
+    /* SVG left margin adjust */
+    margin: -8px;
 }
 #section-header #title {
     font-size: 2rem;

@@ -1,4 +1,4 @@
-.popular-ingredient {
+.landing-ingredient-suggestion {
   width: 70vw;
   /*.popular ingredient width (70vw) - img width (65vw) = 5vw
     Putting 2.5vw creates uniform padding and 
@@ -9,12 +9,12 @@
   box-shadow: 0 0 8px 3px #0000001c;
   border-radius: var(--border-standard);
 }
-.popular-ingredient h3 {
+.landing-ingredient-suggestion h3 {
   font-weight: 600;
   font-size: 1.5em;
   padding: 5px 0;
 }
-.popular-ingredient img {
+.landing-ingredient-suggestion img {
   width: 65vw;
 
   border-radius: var(--border-standard);

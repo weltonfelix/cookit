@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import './styles.css';
 import { MdSearch } from 'react-icons/md';
 import logotype from '../../assets/images/logos/logotype.svg';
+import sampleData from '../../api/sample-data'; // Temp
 
 import LandingIngredientSuggestion from '../../components/LandingIngredientSuggestion';
 
@@ -55,23 +56,12 @@ const Landing: React.FC = () => {
       <section id="popular-ingredients-container">
         <h2>Ingredientes Recentes</h2>
         <div id="popular-ingredients">
-          {/* Only examples */}
-          <LandingIngredientSuggestion
-            name="Cenoura"
-            imgSrc="https://images.unsplash.com/photo-1582515073490-39981397c445?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
-          />
-          <LandingIngredientSuggestion
-            name="Cenoura"
-            imgSrc="https://images.unsplash.com/photo-1582515073490-39981397c445?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
-          />
-          <LandingIngredientSuggestion
-            name="Cenoura"
-            imgSrc="https://images.unsplash.com/photo-1582515073490-39981397c445?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
-          />
-          <LandingIngredientSuggestion
-            name="Cenoura"
-            imgSrc="https://images.unsplash.com/photo-1582515073490-39981397c445?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
-          />
+          {sampleData.recentIngredients.map(ingredient => (
+            <LandingIngredientSuggestion
+              name={ingredient.name}
+              imgSrc="https://images.unsplash.com/photo-1582515073490-39981397c445?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
+            />
+          ))}
         </div>
       </section>
     </div>

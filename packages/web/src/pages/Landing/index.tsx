@@ -6,7 +6,7 @@ import { MdSearch } from 'react-icons/md';
 import logotype from '../../assets/images/logos/logotype.svg';
 import sampleData from '../../api/sample-data'; // Temp
 
-import LandingIngredientSuggestion from '../../components/LandingIngredientSuggestion';
+import LandingIngredientSuggestion from './components/LandingIngredientSuggestion';
 
 const Landing: React.FC = () => {
   const history = useHistory();

@@ -66,3 +66,19 @@
 #page-search #results {
   border-top: 2px solid var(--color-light);
 }
+
+
+#page-search #results #no-recipe-results {
+  margin: 90px auto auto auto;
+  padding: 0 20% 20% 20%;
+  text-align: center;
+}
+#page-search #results #no-recipe-results svg {
+  font-size: 2.6rem;
+  color: var(--color-light);
+}
+#page-search #results #no-recipe-results h3 {
+  margin-top: 8px;
+  font-size: 1.3rem;
+  color: var(--color-light);
+}

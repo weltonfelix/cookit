@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { useState } from 'react';
 import { GiKnifeFork } from 'react-icons/gi';

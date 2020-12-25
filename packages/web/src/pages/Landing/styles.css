@@ -3,7 +3,7 @@
   height: 100vh;
 
   /* All page lateral "margin" */
-  padding: 0 25px;
+  padding: 0 25px 30px 25px;
 
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@
 }
 #page-landing main #search-bar input:-ms-input-placeholder {
   color: #bdbdbd;
-} 
+}
 #page-landing main #search-bar input::-ms-input-placeholder {
   color: #bdbdbd;
 }
@@ -77,7 +77,7 @@
 }
 
 #page-landing #popular-ingredients-container {
-  margin: 60px 0 30px 0;
+  margin: 60px 0 0 0;
 }
 #page-landing #popular-ingredients-container h2 {
   font-size: 1.8em;

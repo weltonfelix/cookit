@@ -1,22 +1,64 @@
 .search-recipe-result {
   width: 100%;
-  /*.popular ingredient width (70vw) - img width (65vw) = 5vw
-  Putting 2.5vw creates uniform padding and 
-  "centers" the image */
-  padding: 3% 3% 0 3%;
-  
-  background-color: #f2f2f2; 
+  padding: 4% 4% 3% 4%; /* "borders" config */
+
+  background-color: #f2f2f2;
   box-shadow: 0 0 8px 3px #0000001c;
   border-radius: var(--border-standard);
 }
-.search-recipe-result h3 {
-  font-weight: 600;
-  font-size: 1.5em;
-  padding: 5px 0;
-}
 .search-recipe-result img {
   width: 100%;
-  
   border-radius: var(--border-standard);
 }
-  
+
+.search-recipe-result .descriptions {
+  display: grid;
+  grid-template-columns: 0.65fr 0.35fr;
+  grid-template-rows: 0.65fr 0.35fr;
+  grid-template-areas:
+    "title prep-time"
+    "author stars";
+
+  row-gap: 7px;
+}
+.search-recipe-result .descriptions .title {
+  grid-area: title;
+
+  margin: 8px auto auto 0;
+
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--color-primary);
+}
+.search-recipe-result .descriptions .prep-time {
+  grid-area: prep-time;
+
+  margin: auto 0 3px auto;
+  display: flex;
+
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+.search-recipe-result .descriptions .prep-time svg {
+  margin-bottom: -2.8px; /*SVG minor adjust*/
+  margin-left: 4px;
+}
+
+.search-recipe-result .descriptions .author {
+  grid-area: author;
+
+  font-size: 1.1rem;
+  color: var(--color-dark);
+  font-weight: 600;
+}
+.search-recipe-result .descriptions .stars {
+  grid-area: stars;
+
+  display: flex;
+  flex-direction: row;
+  margin: auto 0 auto auto;
+
+  font-size: 1.3rem;
+  color: var(--color-primary);
+}

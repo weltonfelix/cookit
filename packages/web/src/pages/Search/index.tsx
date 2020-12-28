@@ -182,6 +182,7 @@ const Search: React.FC = () => {
                 prepTime={ingredient.prepTime}
                 author={ingredient.author}
                 stars={ingredient.stars}
+                key={ingredient.title}
               />
             ))}
           </div>

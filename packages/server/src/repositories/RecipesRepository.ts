@@ -50,14 +50,14 @@ class RecipesRepository extends Repository<Recipe> {
   ): Promise<[RecipesResult[], number] | null> {
     const ingredientsRepository = getRepository(Ingredient);
 
-    const ingredients = ingredientsArray.map(ingredient =>
-      ingredient.toUpperCase()
-    );
+    const ingredients = ingredientsArray
+      .map(ingredient => ingredient.toUpperCase())
 
     const recipesQuery = await ingredientsRepository.createQueryBuilder('ingredients')
       .leftJoinAndSelect('ingredients.recipe_ingredients', 'recipe_ingredient')
       .leftJoinAndSelect('recipe_ingredient.recipe', 'recipe')
-      .where('UPPER(ingredients.name) ~ (:...name)', {
+      // Unfortunately, postgres will only identify exactly ingredient names matches
+      .where('UPPER(ingredients.name) IN (:...name)', {
         name: ingredients,
       })
       .select([
@@ -74,6 +74,8 @@ class RecipesRepository extends Repository<Recipe> {
         'recipe.countRates',
       ])
       .getMany() as unknown as RecipesQuery[];
+
+    console.log(recipesQuery)
 
     if (!recipesQuery || recipesQuery.length === 0) {
       return [[], 0];

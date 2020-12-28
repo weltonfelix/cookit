@@ -15,13 +15,14 @@ interface RecipesResult {
   countRates: Recipe['countRates'];
 }
 
+interface RecipeIngredients {
+  id: RecipeIngredient['id'];
+  recipe: RecipesResult;
+}
 interface RecipesQuery {
   id: Ingredient['id'];
   name: Ingredient['name'];
-  recipe_ingredients: {
-    id: RecipeIngredient['id'],
-    recipe: RecipesResult,
-  }
+  recipe_ingredients: RecipeIngredients[]
 }
 
 @EntityRepository(Recipe)
@@ -53,11 +54,10 @@ class RecipesRepository extends Repository<Recipe> {
       ingredient.toUpperCase()
     );
 
-    const recipesQuery = await ingredientsRepository
-      .createQueryBuilder('ingredients')
+    const recipesQuery = await ingredientsRepository.createQueryBuilder('ingredients')
       .leftJoinAndSelect('ingredients.recipe_ingredients', 'recipe_ingredient')
       .leftJoinAndSelect('recipe_ingredient.recipe', 'recipe')
-      .where('UPPER(ingredients.name) IN (:...name)', {
+      .where('UPPER(ingredients.name) ~ (:...name)', {
         name: ingredients,
       })
       .select([
@@ -79,15 +79,23 @@ class RecipesRepository extends Repository<Recipe> {
       return [[], 0];
     }
 
-    const recipes = recipesQuery.map(recipe => ({
-      id: recipe.recipe_ingredients.recipe.id,
-      title: recipe.recipe_ingredients.recipe.title,
-      picture: recipe.recipe_ingredients.recipe.picture,
-      author: recipe.recipe_ingredients.recipe.author,
-      prepTime: recipe.recipe_ingredients.recipe.prepTime,
-      stars: recipe.recipe_ingredients.recipe.stars,
-      countRates: recipe.recipe_ingredients.recipe.countRates,
-    }));
+    console.log(recipesQuery[0].recipe_ingredients)
+
+    let recipes: RecipesResult[] = [];
+
+    recipesQuery.forEach(ingredient => {
+      const newRecipes = ingredient.recipe_ingredients.map(recipeData => ({
+        id: recipeData.recipe.id,
+        title: recipeData.recipe.title,
+        picture: recipeData.recipe.picture,
+        author: recipeData.recipe.author,
+        prepTime: recipeData.recipe.prepTime,
+        stars: recipeData.recipe.stars,
+        countRates: recipeData.recipe.countRates,
+      }))
+
+      recipes = [...recipes, ...newRecipes]
+    });
 
     return [recipes, recipes.length];
   }

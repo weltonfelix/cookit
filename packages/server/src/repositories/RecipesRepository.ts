@@ -79,8 +79,6 @@ class RecipesRepository extends Repository<Recipe> {
       return [[], 0];
     }
 
-    console.log(recipesQuery[0].recipe_ingredients)
-
     let recipes: RecipesResult[] = [];
 
     recipesQuery.forEach(ingredient => {

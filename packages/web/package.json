@@ -2,6 +2,9 @@
   "name": "@cookit/web",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "nanoid": "^3.1.20",
     "react": "^16.13.1",

@@ -8,12 +8,14 @@
 }
 .search-recipe-result img {
   width: 100%;
+  height: 28vh;
+  object-fit: cover;
   border-radius: var(--border-standard);
 }
 
 .search-recipe-result .descriptions {
   display: grid;
-  grid-template-columns: 0.65fr 0.35fr;
+  grid-template-columns: 1fr 0.65fr;
   grid-template-rows: 0.65fr 0.35fr;
   grid-template-areas:
     "title prep-time"
@@ -25,6 +27,8 @@
   grid-area: title;
 
   margin: 8px auto auto 0;
+
+  text-decoration: none;
 
   font-weight: 700;
   font-size: 2rem;

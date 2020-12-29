@@ -1,23 +1,32 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { GiKnifeFork } from 'react-icons/gi';
-// Check Gi best other icons later
-
-import sampleData from '../../api/sample-data'; // (TEMP)
-
 import SectionHeader from '../../components/SectionHeader';
 import IngredientSuggestion from './components/IngredientSuggestion';
 import RecipeResult from './components/RecipeResult';
 
+import api from '../../api/api';
+
 import './styles.css';
 
 interface RecipeResultProps {
-  pictureUrl: string;
+  id: number;
+  picture: string;
   title: string;
   prepTime: number;
   author: string;
   stars: number;
+  countRates: number;
+}
+
+interface AutocompleteIngredientsProps {
+  name: string;
+  id: number;
 }
 
 const Search: React.FC = () => {
@@ -25,16 +34,75 @@ const Search: React.FC = () => {
   const [selectedIngredientList, setSelectedIngredientList] = useState<
     string[]
   >([]);
-  const [ingredientSuggestionList, setIngredientSuggestionList] = useState(
-    // Parse data from recentIngredients (TEMP)
-    sampleData.recentIngredients.map(ingredient => ingredient.name)
-  );
+  const [ingredientSuggestionList, setIngredientSuggestionList] = useState<
+    string[]
+  >(JSON.parse(localStorage.getItem('last-used-ingredients') || '[]') || []);
   const [searchRecipeResults, setSearchRecipeResults] = useState<
     RecipeResultProps[]
-  >(
-    // Parse data from recentIngredients (TEMP)
-    sampleData.ingredientsResult.map(ingredient => ingredient)
-  );
+  >([]);
+  const [autocompleteIngredients, setAutocompleteIngredients] = useState<
+    AutocompleteIngredientsProps[]
+  >([]);
+
+  const history = useHistory();
+
+  /* Main search useEffect, monitors
+  selectedIngredient */
+  useEffect(() => {
+    if (selectedIngredientList.length > 0) {
+      try {
+        api
+          .get('/recipes', {
+            params: {
+              ingredients: JSON.stringify(selectedIngredientList),
+            },
+          })
+          .then(response => {
+            setSearchRecipeResults(response.data.recipes);
+          });
+      } catch (error) {
+        alert(
+          `Eita! Houve algum problema... Por favor, tente novamente. Erroro: ${error}`
+        );
+      }
+    }
+  }, [selectedIngredientList]);
+
+  // Updates localStorage last-used-ingredients
+  useEffect(() => {
+    localStorage.setItem(
+      'last-used-ingredients',
+      JSON.stringify(ingredientSuggestionList)
+    );
+  }, [ingredientSuggestionList]);
+
+  // Monitor input change to autocomplete suggestions
+  useEffect(() => {
+    if (ingredientInput.length > 0) {
+      try {
+        api
+          .get('/ingredient', {
+            params: {
+              name: ingredientInput,
+            },
+          })
+          .then(response => {
+            const { data } = response;
+            const parsedAutocompleteIngredients = data.map(
+              (ingredient: AutocompleteIngredientsProps) => ({
+                name: ingredient.name,
+                id: ingredient.id,
+              })
+            );
+            setAutocompleteIngredients(parsedAutocompleteIngredients);
+          });
+      } catch (err) {
+        alert(err);
+      }
+    } else {
+      setAutocompleteIngredients([]);
+    }
+  }, [ingredientInput]);
 
   // List's generic auxiliary function
   function findAndRemoveIngredientInList(
@@ -56,7 +124,9 @@ const Search: React.FC = () => {
     // Verify if ingredient isn't blank and isn't already added
     if (
       parsedIngredient !== '' &&
-      selectedIngredientList.indexOf(parsedIngredient) === -1
+      selectedIngredientList
+        .map(selectedIngredient => selectedIngredient.toLowerCase())
+        .indexOf(parsedIngredient.toLowerCase()) === -1
     ) {
       // Find and remove if ingredient is in Suggestion List
       const updatedIngredientSuggestionList = findAndRemoveIngredientInList(
@@ -130,6 +200,37 @@ const Search: React.FC = () => {
     setIngredientSuggestionList(updatedIngredientSuggestionList);
   }
 
+  function handleAddAutocompleteIngredient(ingredientName: string): void {
+    // Only add if already not added
+    if (selectedIngredientList.indexOf(ingredientName) === -1) {
+      const updatedSelectedIngredientList = selectedIngredientList.concat(
+        ingredientName
+      );
+      // Reset (make empty) everything
+      setSelectedIngredientList(updatedSelectedIngredientList);
+    }
+    setAutocompleteIngredients([]);
+    setIngredientInput('');
+  }
+
+  /* Redirect to Recipe Details Page & stores used ingredients
+  and last seen recipes to localStorage */
+  function handleRedirectToRecipeDetailsPage(recipeId: number): void {
+    history.push(`/recipe/${recipeId}`, { recipeId });
+    const lastUsedIngredients = selectedIngredientList;
+    const lastSeenRecipes = searchRecipeResults.slice(0, 5).map(recipe => ({
+      id: recipe.id,
+      title: recipe.title,
+      picture: recipe.picture,
+    }));
+
+    localStorage.setItem(
+      'last-used-ingredients',
+      JSON.stringify(lastUsedIngredients)
+    );
+    localStorage.setItem('last-seen-recipes', JSON.stringify(lastSeenRecipes));
+  }
+
   return (
     <div id="page-search">
       <SectionHeader title="Pesquisar" />
@@ -158,6 +259,26 @@ const Search: React.FC = () => {
             ))}
           </div>
         </div>
+        {autocompleteIngredients.length > 0 && (
+          <div id="autocomplete">
+            <ul>
+              {autocompleteIngredients.map(ingredient => (
+                <li
+                  key={ingredient.id}
+                  onClick={() =>
+                    handleAddAutocompleteIngredient(ingredient.name)
+                  }
+                  onKeyPress={() =>
+                    handleAddAutocompleteIngredient(ingredient.name)
+                  }
+                  tabIndex={0}
+                >
+                  <p>{ingredient.name}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div id="suggestions">
           {ingredientSuggestionList.map(ingredient => (
             <IngredientSuggestion
@@ -175,14 +296,17 @@ const Search: React.FC = () => {
       <section id="results">
         {searchRecipeResults.length > 0 ? (
           <div id="recipe-results">
-            {searchRecipeResults.map(ingredient => (
+            {searchRecipeResults.map(recipe => (
               <RecipeResult
-                pictureUrl={ingredient.pictureUrl}
-                title={ingredient.title}
-                prepTime={ingredient.prepTime}
-                author={ingredient.author}
-                stars={ingredient.stars}
-                key={ingredient.title}
+                redirectFunction={(): void =>
+                  handleRedirectToRecipeDetailsPage(recipe.id)
+                }
+                pictureUrl={recipe.picture}
+                title={recipe.title}
+                prepTime={recipe.prepTime}
+                author={recipe.author}
+                stars={Math.round(recipe.stars / recipe.countRates)}
+                key={recipe.id}
               />
             ))}
           </div>

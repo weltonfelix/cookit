@@ -31,9 +31,10 @@
 }
 
 #page-recipe-details #resume #details {
-  margin: 5px 0 20px;
+  margin: 10px 0 20px;
+  width: 100%;
   display: grid;
-  grid-template-columns: 0.70fr 0.30fr;
+  grid-template-columns: 1fr 0.70fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
     "author stars"
@@ -80,18 +81,19 @@
   margin-top: 15px;
 }
 
-#page-recipe-details #descriptions #instructions-container {
+#page-recipe-details #descriptions #directions-container {
   margin-bottom: 20px;
 }
-#page-recipe-details #descriptions #instructions-container h3 {
+#page-recipe-details #descriptions #directions-container h3 {
   font-size: 1.8rem;
   color: var(--color-primary);
 }
-#page-recipe-details #descriptions #instructions-container #instructions {
+#page-recipe-details #descriptions #directions-container #directions {
   margin: 15px 0 0 10px;
 }
-#page-recipe-details #descriptions #instructions-container #instructions .instruction+.instruction {
-  margin-top: 15px;
+#page-recipe-details #descriptions #directions-container #directions .direction+.direction{
+  /* Bigger because of label properties */
+  margin-top: 30px;
 }
 
 /* CUSTOMIZED CHECKBOX CSS */
@@ -122,7 +124,7 @@
   opacity: 0;
 }
 #page-recipe-details #descriptions input {
-  margin: -5px 0;
+  margin: 0 0;
 }
 #page-recipe-details #descriptions input:checked {
   color: #fff;
@@ -136,7 +138,7 @@
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 #page-recipe-details #descriptions label {
-  position: relative;
+  position: absolute;
   font-size: 1.3em;
   color: #000000;
   font-weight: 400;

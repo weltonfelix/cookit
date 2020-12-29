@@ -4,15 +4,21 @@ import { useHistory } from 'react-router-dom';
 import './styles.css';
 import { MdSearch } from 'react-icons/md';
 import logotype from '../../assets/images/logos/logotype.svg';
-import sampleData from '../../api/sample-data'; // Temp
 
-import LandingIngredientSuggestion from './components/LandingIngredientSuggestion';
+import LandingRecipeSuggestion from './components/LandingRecipeSuggestion';
+
+interface LastSeenRecipes {
+  title: string;
+  picture: string;
+  id: number;
+}
 
 const Landing: React.FC = () => {
-  const history = useHistory();
-
   const [currentMeal, setCurrentMeal] = useState('');
-
+  const [lastSeenRecipes, setLastSeenRecipes] = useState<LastSeenRecipes[]>(
+    JSON.parse(localStorage.getItem('last-seen-recipes') || '[]') || []
+  );
+  const history = useHistory();
   useEffect(() => {
     const hour = new Date().getHours();
 
@@ -25,8 +31,12 @@ const Landing: React.FC = () => {
     }
   }, []);
 
-  function handleSearchPageRedirect(): void {
-    return history.push('/search');
+  function handleRedirectToSearchPage(): void {
+    history.push('/search');
+  }
+
+  function handleRedirectToRecipeDetailsPage(recipeId: number): void {
+    history.push(`/recipe/${recipeId}`, { recipeId });
   }
 
   return (
@@ -44,24 +54,33 @@ const Landing: React.FC = () => {
         </div>
         <div
           id="search-bar"
-          onClick={handleSearchPageRedirect}
-          onKeyPress={handleSearchPageRedirect}
+          onKeyPress={handleRedirectToSearchPage}
           tabIndex={0}
           role="button"
+          onClick={handleRedirectToSearchPage}
         >
           <input type="text" placeholder="Ingredientes" />
           <MdSearch />
         </div>
       </main>
-      <section id="popular-ingredients-container">
-        <h2>Ingredientes Recentes</h2>
-        <div id="popular-ingredients">
-          {sampleData.recentIngredients.map(ingredient => (
-            <LandingIngredientSuggestion
-              name={ingredient.name}
-              imgSrc="https://images.unsplash.com/photo-1582515073490-39981397c445?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
-            />
-          ))}
+      <section id="last-seen-recipes-container">
+        <h2>Receitas Recentes</h2>
+        <div id="last-seen-recipes">
+          {lastSeenRecipes.length > 0 ? (
+            lastSeenRecipes.map(recipe => (
+              <LandingRecipeSuggestion
+                title={recipe.title}
+                picture={recipe.picture}
+                recipeId={recipe.id}
+                redirectFunction={() =>
+                  handleRedirectToRecipeDetailsPage(recipe.id)
+                }
+                key={recipe.id}
+              />
+            ))
+          ) : (
+            <h3>TODO: Implementar o Receitas Populares</h3>
+          )}
         </div>
       </section>
     </div>

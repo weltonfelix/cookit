@@ -38,7 +38,7 @@ This project was developed as Harvard CS50 final project.
 
 <h2 align='center'>
 	<a>
-      		<img title="Website" alt="web" src="./demo.gif" width="50%">
+      		<img title="Website" alt="web" src="./demo.gif" width="30%">
 	</a>
 </h2>
 

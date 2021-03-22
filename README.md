@@ -7,6 +7,7 @@
 # Cookit!
 
 Cookit! is a platform where you can search for recipes based on the ingredients you have in your home, instead of searching only for the name of the recipe.
+
 <p align="center">
   <img alt="Github language counter" src="https://img.shields.io/github/languages/count/weltonfelix/cookit?color=%2304D361">
 
@@ -33,7 +34,7 @@ Cookit! is a platform where you can search for recipes based on the ingredients 
   </a>
 </p>
 
-This project was developed as Harvard CS50 final project.
+This project was developed as a Harvard's CS50 final project.
 ### ✨ Demo
 
 <h2 align='center'>
@@ -42,7 +43,26 @@ This project was developed as Harvard CS50 final project.
 	</a>
 </h2>
 
+# Features
+- Search by ingredients
+- Ingredients autocomplete
+- Ingredients suggestion (based on last used ingredients)
+- Checkboxes to mark your progress in the recipe
+- Record last recipes
+- Recipes rating
+
+# Techs:
+- Front-end:
+    - Typescript
+    - ReactJS
+- Back-end:
+    - Typescript
+    - NodeJS
+    - Express
+    - PostgresSQL
+
 ## 🤝 Contributing
+(Note: This is only a mirror repo, click [here](https://github.com/weltonfelix/cookit/issues) to go to the main repo)
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/weltonfelix/cookit/issues).
 - Make a fork;

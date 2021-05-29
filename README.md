@@ -62,8 +62,6 @@ This project was developed as a Harvard's CS50 final project.
     - PostgresSQL
 
 ## 🤝 Contributing
-(Note: This is only a mirror repo, click [here](https://github.com/weltonfelix/cookit/issues) to go to the main repo)
-
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/weltonfelix/cookit/issues).
 - Make a fork;
 - Create a branch with your feature: `git checkout -b my-feature`;
